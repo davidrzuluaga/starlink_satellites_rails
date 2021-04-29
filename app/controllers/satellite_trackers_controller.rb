@@ -1,0 +1,3 @@
+class SatelliteTrackersController < ApplicationController
+
+end

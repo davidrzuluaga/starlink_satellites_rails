@@ -1,0 +1,2 @@
+class SatelliteTracker < ApplicationRecord
+end
