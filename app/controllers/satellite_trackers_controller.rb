@@ -9,6 +9,19 @@ class SatelliteTrackersController < ApplicationController
         originLongitude = params[:originLongitude]
         number = params[:number]
 
+        if !originLatitude || !originLongitude || !number
+            error = {
+                error: "Missing params", 
+                params: params, 
+                required: { 
+                    originLatitude: "number", 
+                    originLongitude: "number", 
+                    number: "number"
+                }
+            }
+            return render json: error
+        end
+
         satellites = callSpaceXSatellites()
         
         satellitesWithLocation = filterByLocationNotNULL(satellites)
