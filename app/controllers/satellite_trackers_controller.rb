@@ -28,7 +28,7 @@ class SatelliteTrackersController < ApplicationController
         
         satWithDistance = addDistanceFromCoordinates(satellitesWithLocation, originLatitude.to_i, originLongitude.to_i)
 
-        render json: satWithDistance
+        render json: getClosestSatellites(satWithDistance, number.to_i)
     end
 
 private
@@ -57,5 +57,14 @@ private
             arrayWithDistance.push(satellite)
         end
         return arrayWithDistance
+    end
+
+    def getClosestSatellites(satWithDistance, number = 10)
+        satWithDistance = satWithDistance.sort_by { |satellite| satellite[:distanceWithOrigin] }
+        limitedArray = []
+        satWithDistance[0..number-1].each do |satellite|
+            limitedArray << satellite
+        end
+        return limitedArray
     end
 end
